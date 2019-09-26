@@ -250,7 +250,7 @@ toolz==0.9.0
 tornado==5.1
 tqdm==4.26.0
 traitlets==4.3.2
-Twisted==18.9.0
+Twisted==19.7.0
 typed-ast==1.3.1
 ua-parser==0.8.0
 unicodecsv==0.14.1
