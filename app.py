@@ -17,5 +17,10 @@ def playlists_view():
     return render_template('playlists_view.html',
                            playlist=playlist_collection.find())
 
+@app.route('/playlists/new')
+def playlists_new():
+    """Create a playlist"""
+    return render_template('playlists_new.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
