@@ -5,7 +5,7 @@ app = Flask(__name__)
 app.config['ENV'] = 'development'
 
 @app.route('/')
-def playlists_index():
+def playlists_view():
     """Show all playlists."""
     return render_template('playlists_view.html',
                            playlist=[{
