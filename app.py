@@ -56,6 +56,14 @@ def playlist_update(playlist_id):
     )
     return redirect(url_for("playlists_show", playlist_id=playlist_id))
 
+@app.route("/playlists/<playlist_id>", method=["POST"])
+def playlist_delete(playlist_id):
+    """Delete playlist by playlist_id"""
+    playlist_collection.delete_one({
+        "_id": ObjectId(playlist_id),
+    })
+    return redirect(url_for("playlists_index"))
+
 @app.route("/playlists/new")
 def playlists_new():
     """Create a playlist"""
