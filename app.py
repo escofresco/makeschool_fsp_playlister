@@ -31,8 +31,10 @@ def playlists_submit():
 
 @app.route("/playlists/<playlist_id>")
 def playlists_show(playlist_id):
-    playlist = playlists.find_one({"_id": ObjectId(playlist_id)})
-    return render_template("playlists_show.html", playlist=playlist)
+    playlist_document = playlist_collection.find_one({
+        "_id": ObjectId(playlist_id)
+        })
+    return render_template("playlists_show.html", playlist=playlist_document)
 
 @app.route("/playlists/new")
 def playlists_new():
