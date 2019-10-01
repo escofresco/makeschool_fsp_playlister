@@ -36,11 +36,11 @@ def playlists_show(playlist_id):
         })
     return render_template("playlists_show.html", playlist=playlist_document)
 
-@app.route("/playlists/<playlist_id>")
-def playlists_show(playlist_id):
+@app.route("/playlists/<playlist_id>/edit")
+def playlists_edit(playlist_id):
     """Render edit template for playlist with playlist_id"""
     playlist_document = playlist_collection.find_one({"_id": ObjectId(playlist_id)})
-    return render_template("playlists_edit.html", playlist=playlist_collection)
+    return render_template("playlists_edit.html", playlist=playlist_document)
 
 @app.route("/playlists/new")
 def playlists_new():
