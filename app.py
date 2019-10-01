@@ -14,12 +14,18 @@ playlist_collection = playlister_db.playlists
 @app.route("/")
 def playlists_view():
     """Show all playlists."""
-    return render_template("playlists_view.html", playlist=playlist_collection.find())
+    return render_template("playlists_view.html", playlists=playlist_collection.find())
 
 
-@app.route("/playlists")
+@app.route("/playlists", methods=['POST'])
 def playlists_submit():
     """Handle save playlist form action"""
+    playlist_document = {
+        'title': request.form.get('title-input'),
+        'description': request.form.get('description-input'),
+        'videos': request.form.get('videos-input').split(),
+    }
+    playlist_collection.insert_one(playlist_document)
     return redirect(url_for("playlists_view"))
 
 
