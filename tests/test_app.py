@@ -71,7 +71,7 @@ class AppTestSuite(unittest.TestCase):
         self.assertEqual(result.status, '302 FOUND')
         mock_insert.assert_called_with(sample_playlist)
 
-    @mock.patch('pymongo.collection.Collection.update_one')
+    @patch('pymongo.collection.Collection.update_one')
     def test_update_playlist(self, mock_update):
         result = self.client.post(f'/playlists/{sample_playlist_id}', data=sample_form_data)
 
