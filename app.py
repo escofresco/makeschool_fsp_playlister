@@ -5,12 +5,16 @@ from pymongo import MongoClient
 
 # Flask simple setup
 app = Flask(__name__)
-#app.config["ENV"] = "development"
+app.config["ENV"] = "development"
 
-host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/Playlister')
-client = MongoClient(host=f'{host}?retryWrites=false') #MongoClient()
-playlister_db = client.get_default_database() #client.Playlister
+# host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/Playlister')
+# client = MongoClient(host=f'{host}?retryWrites=false') #MongoClient()
+client = MongoClient()
+playlister_db = client.Playlister
+# playlister_db = client.Playlister
+
 playlist_collection = playlister_db.playlists
+comment_collection = playlister_db.comments
 
 
 @app.route("/")
@@ -35,7 +39,10 @@ def playlists_show(playlist_id):
     playlist_document = playlist_collection.find_one({
         "_id": ObjectId(playlist_id)
         })
-    return render_template("playlists_show.html", playlist=playlist_document)
+    comment_documents = comment_collection.find({
+        "playlist_id": ObjectId(playlist_id),
+    })
+    return render_template("playlists_show.html", playlist=playlist_document, comments=comment_documents)
 
 @app.route("/playlists/<playlist_id>/edit")
 def playlists_edit(playlist_id):
@@ -69,6 +76,18 @@ def playlist_delete(playlist_id):
 def playlists_new():
     """Create a playlist"""
     return render_template("playlists_new.html", title="New Playlist")
+
+@app.route("/playlists/comments", methods=["POST"])
+def comments_new():
+    """Submit a new comment"""
+    comment = {
+        'title': request.form.get('title'),
+        'content': request.form.get('content'),
+        'playlist_id': ObjectId(request.form.get('playlist_id'))
+    }
+    print(comment)
+    comment_id = comment_collection.insert_one(comment).inserted_id
+    return redirect(url_for('playlists_show', playlist_id=request.form.get('playlist_id')))
 
 
 if __name__ == "__main__":
