@@ -1,10 +1,16 @@
 from bson.objectid import ObjectId
 from flask import Flask, redirect, render_template, request, url_for
+import os
 from pymongo import MongoClient
 
 # Flask simple setup
 app = Flask(__name__)
-app.config["ENV"] = "development"
+#app.config["ENV"] = "development"
+
+host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/Playlister')
+client = MongoClient(host=host)
+db = client.get_default_database()
+playlists = db.playlists
 
 # Mongo setup
 client = MongoClient()
