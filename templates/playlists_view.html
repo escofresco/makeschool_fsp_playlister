@@ -1,8 +1,9 @@
 {# templates/playlists_view.html #}
 {% extends 'base.html' %}
 
-<a href="playlists/new">new playlist</a>
+
 {% block content %}
+    <a href="playlists/new">new playlist</a>
     {% for playlist in playlists %}
         <h3><a href='/playlists/{{ playlist._id }}'>{{playlist.title}}</a>
         </h3>
