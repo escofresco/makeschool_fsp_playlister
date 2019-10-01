@@ -78,5 +78,12 @@ class AppTestSuite(unittest.TestCase):
         self.assertEqual(result.status, '302 FOUND')
         mock_update.assert_called_with({'_id': sample_playlist_id}, {'$set': sample_playlist})
 
+    @patch('pymongo.collection.Collection.delete_one')
+    def test_delete_playlist(self, mock_delete):
+        form_data = {'_method': 'DELETE'}
+        result = self.client.post(f'/playlists/{sample_playlist_id}/delete', data=form_data)
+        self.assertEqual(result.status, '302 FOUND')
+        mock_delete.assert_called_with({'_id': sample_playlist_id}
+
 if __name__ == "__main__":
     unittest.main()
