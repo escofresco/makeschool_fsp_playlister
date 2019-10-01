@@ -1,3 +1,4 @@
+from bson.objectid import ObjectId
 from flask import Flask, redirect, render_template, request, url_for
 from pymongo import MongoClient
 
@@ -28,6 +29,10 @@ def playlists_submit():
     playlist_collection.insert_one(playlist_document)
     return redirect(url_for("playlists_view"))
 
+@app.route("/playlists/<playlist_id>")
+def playlists_show(playlist_id):
+    playlist = playlists.find_one({"_id": ObjectId(playlist_id)})
+    return render_template("playlists_show.html", playlist=playlist)
 
 @app.route("/playlists/new")
 def playlists_new():
