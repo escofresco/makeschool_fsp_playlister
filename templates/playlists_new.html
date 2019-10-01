@@ -3,22 +3,6 @@
 
 {% block content %}
     <form method="POST" action="/playlists">
-        <fieldset>
-            <legend>new playlist</legend>
-            <p>
-                <label for="title-input">Title</label>
-                <input type="text" name="title-input" />
-            </p>
-            <p>
-                <label for="description-input">Description</label>
-                <input type="text" name="description-input" />
-            </p>
-            <p>
-                <label for='playlist-videos'>Videos</label><br>
-                <p>Add videos in the form of 'https://youtube.com/embed/KEY'. Separate with a newline.</p>
-                <textarea id='playlist-videos' name='videos-input' rows='10'></textarea>
-            </p>
-        </fieldset>
-        <button type="submit">Save</button>
+        {% include 'partials/playlists_form.html' %}
     </form>
 {% endblock content %}
