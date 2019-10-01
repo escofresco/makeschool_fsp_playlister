@@ -62,7 +62,7 @@ def playlist_delete(playlist_id):
     playlist_collection.delete_one({
         "_id": ObjectId(playlist_id),
     })
-    return redirect(url_for("playlists_index"))
+    return redirect(url_for("playlists_view"))
 
 @app.route("/playlists/new")
 def playlists_new():
