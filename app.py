@@ -26,8 +26,8 @@ def playlists_submit():
         'description': request.form.get('description-input'),
         'videos': request.form.get('videos-input').split(),
     }
-    playlist_collection.insert_one(playlist_document)
-    return redirect(url_for("playlists_view"))
+    playlist_id = playlist_collection.insert_one(playlist_document).inserted_id
+    return redirect(url_for("playlists_show", playlist_id=playlist_id))
 
 @app.route("/playlists/<playlist_id>")
 def playlists_show(playlist_id):
