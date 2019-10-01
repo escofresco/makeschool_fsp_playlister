@@ -3,10 +3,16 @@
 
 
 {% block content %}
-    <a href="playlists/new">new playlist</a>
     {% for playlist in playlists %}
-        <h3><a href='/playlists/{{ playlist._id }}'>{{playlist.title}}</a>
-        </h3>
-        <p>{{playlist.description}}</p>
+        <div class='col-md-3'>
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title"><a href='/playlists/{{ playlist._id }}'>{{playlist.title}}</a></h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{playlist.description}}</h6>
+                <a href="#" class="card-link">Card link</a>
+                <a href="#" class="card-link">Another link</a>
+              </div>
+            </div>
+        </div>
     {% endfor %}
 {% endblock %}
