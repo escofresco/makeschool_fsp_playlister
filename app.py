@@ -75,7 +75,7 @@ def playlist_delete(playlist_id):
 @app.route("/playlists/new")
 def playlists_new():
     """Create a playlist"""
-    return render_template("playlists_new.html", title="New Playlist")
+    return render_template("playlists_new.html", playlist={}, title="New Playlist")
 
 @app.route("/playlists/comments", methods=["POST"])
 def comments_new():
@@ -88,6 +88,16 @@ def comments_new():
     print(comment)
     comment_id = comment_collection.insert_one(comment).inserted_id
     return redirect(url_for('playlists_show', playlist_id=request.form.get('playlist_id')))
+
+@app.route("/playlists/comments/<comment_id>", methods=["POST"])
+def comments_delete(comment_id):
+    comment = comment_collection.find_one({
+        "_id": ObjectId(comment_id),
+    })
+    comment_collection.delete_one({
+        "_id": ObjectId(comment_id)
+    })
+    return redirect(url_for("playlists_show", playlist_id=comment))
 
 
 if __name__ == "__main__":
