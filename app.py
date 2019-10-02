@@ -10,7 +10,7 @@ app = Flask(__name__)
 host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/Playlister')
 client = MongoClient(host=f'{host}?retryWrites=false') #MongoClient()
 # client = MongoClient()
-playlister_db = client.Playlister
+playlister_db = client.get_default_database() #client.Playlister
 
 playlist_collection = playlister_db.playlists
 comment_collection = playlister_db.comments
